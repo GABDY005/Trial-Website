@@ -198,7 +198,8 @@
             newThread.set({
                 title: title,
                 content: content,
-                timestamp: Date.now()
+                username: "User", 
+                timestamp: Date.now() 
             });
 
             document.getElementById("threadTitle").value = "";
@@ -214,19 +215,22 @@
                     let threadID = childSnapshot.key;
                     let data = childSnapshot.val();
 
-                    let thread = `<div class="thread-card">
-                                    <h4>${data.title}</h4>
-                                    <p>${data.content}</p>
+                    let date = new Date(data.timestamp);
+                    let formattedTime = date.toLocaleString();
 
-                                    <!-- Reply Input -->
-                                    <div class="reply-box">
+                    let thread =  `<div class="thread-card" style="background-color: #f1f1f1; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                                    <h4 style="color: #003366;">${data.title}</h4>
+                                    <p>${data.content}</p>
+                                    <small>Posted by <b>${data.username}</b> at ${formattedTime}</small>
+
+                                    <div class="reply-box mt-2">
                                         <input type="text" id="reply-${threadID}" placeholder="Write a reply..." class="form-control mb-2">
                                         <button onclick="postReply('${threadID}')" class="btn btn-sm btn-secondary">Reply</button>
                                     </div>
 
-                                    <!-- Replies Section -->
                                     <div id="replies-${threadID}" class="mt-3"></div>
-                                  </div>`;
+                                  </div>
+                                  <hr style="border: 1px solid #ccc; margin: 20px 0;">`;
 
                     threadsDiv.innerHTML += thread;
 
@@ -247,6 +251,7 @@
             let newReply = database.ref(`threads/${threadID}/replies`).push();
             newReply.set({
                 text: replyText,
+                username: "User",
                 timestamp: Date.now()
             });
 
@@ -260,7 +265,10 @@
 
                 snapshot.forEach(replySnapshot => {
                     let replyData = replySnapshot.val();
-                    let reply = `<div class="reply">
+                    let date = new Date(replyData.timestamp);
+                    let formattedTime = date.toLocaleString();
+                    let reply = `<div style="background: #e6f2ff; padding: 8px; border-radius: 5px; margin-top: 5px;">
+                                    <b>${replyData.username}</b> at ${formattedTime}: <br>
                                     ${replyData.text}
                                  </div>`;
 
