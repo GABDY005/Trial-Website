@@ -151,10 +151,7 @@
         <a href="help.html">Help</a>
         <a href="aboutus.html">About Us</a>
     </div>
-  </div>
-  <div class="bottom-links">
       <a href="login.html" class="logout-btn">Logout</a>
-  </div>
 </div>
 
 
@@ -174,8 +171,8 @@
                 <option value="Prospect_Library">Prospect Library</option>
         </select>
         
-       <label for="date"> Select Date: </label>
-        <input type="date" id="date" name="date" required placeholder="YYYY-MM-DD">
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" name="date" required>
 
         <label for="time"> Select Time:</label>
         <input type="time" id="time" min="09:00" max="16:00" step="3600" required>
@@ -184,11 +181,11 @@
         
         </form>
     
-          <div class="confirmation-box">
-        <strong>Booking Confirmed!</strong><br>
-        You have booked a chat seat at <strong>Campbelltown Library</strong><br>
-        on <strong>2025-03-27</strong> at <strong>10:00</strong>.
-      </div>
+        <div class="confirmation-box" id="confirmation-box">
+            <strong>Booking Confirmed!</strong><br>
+            You have booked a chat seat at <strong id="confirm-location"></strong><br>
+            on <strong id="confirm-date"></strong> at <strong id="confirm-time"></strong>.
+        </div>
     </div>
     
     <script>
