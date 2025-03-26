@@ -23,6 +23,56 @@
             align-items: center;
             min-height: 100vh;
         }
+
+        .sidebar {
+            background-color: var(--accent-blue);
+            width: 220px;
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border: 3px solid gold;
+            border-radius: 50%;
+            font-weight: bold;
+            color: gold;
+            line-height: 72px;
+            font-size: 1.2rem;
+    }
+        .nav-links a {
+              display: block;
+              margin: 15px 0;
+              font-weight: bold;
+              font-size: 1rem;
+              color: #003366;
+              text-decoration: none;
+    }
+        .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .logout-btn {
+      display: block;
+      margin-top: 40px;
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .main-content {
+      flex: 1;
+      background-color: #21618c;
+      padding: 60px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
         .booking-box {
             background-color:#c4dcec;
             padding:30px;
@@ -76,12 +126,36 @@
             color: var(--primary-blue);
         }
 
-        .back-link:hover{
-            text-decoration: underline;
-        }
+        .confirmation-box {
+          margin-top: 20px;
+          background-color: #e6f3ff;
+          padding: 15px;
+          border-left: 5px solid var(--primary-blue);
+          border-radius: 6px;
+          color: #003366;
+          text-align: left;
+    }
     </style>
 </head>
 <body>
+
+    <div class="sidebar">
+    <div class="logo">Logo</div>
+    <div class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="coordinator.html">Coordinator</a>
+      <a href="listenertips.html">Listener Tips</a>
+      <a href="booking.html">Book Slot</a>
+      <a href="chatroom.html">Chat Room</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="help.html">Help</a>
+      <a href="aboutus.html">About Us</a>
+    </div>
+    <a href="login.html" class="logout-btn">Logout</a>
+  </div>
+
+
+    
     <div class="booking-box">
         <h2> Book your Slot</h2>
         <form action="dashboard.html" method="get">
@@ -107,7 +181,11 @@
         
         </form>
     
-       <br> <a href="dashboard.html" class="back-link">Back</a>
-         </br>
+          <div class="confirmation-box">
+        <strong>Booking Confirmed!</strong><br>
+        You have booked a chat seat at <strong>Campbelltown Library</strong><br>
+        on <strong>2025-03-27</strong> at <strong>10:00</strong>.
+      </div>
+    </div>
 </body>
 </html>
