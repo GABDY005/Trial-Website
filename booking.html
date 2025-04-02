@@ -1,230 +1,266 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Slot</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://www.gstatic.com/firebasejs/11.5.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.5.0/firebase-database-compat.js"></script>
-    
-    <style>
-        :root {
-      --primary-blue: #003366;
-      --accent-blue: #A8E4F2;
-    }
-        body{
-            font-family:Tahoma, sans-serif;
-            background-color: #21618c;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Slot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+  
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.5.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.5.0/firebase-database-compat.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
 
-        .sidebar {
-            background-color: var(--accent-blue);
-            width: 220px;
-            min-height: 100vh;
-            padding: 20px 15px;
-        }
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-            border: 3px solid gold;
-            border-radius: 50%;
-            font-weight: bold;
-            color: gold;
-            line-height: 72px;
-            font-size: 1.2rem;
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
     }
-        .nav-links a {
-              display: block;
-              margin: 15px 0;
-              font-weight: bold;
-              font-size: 1rem;
-              color: #003366;
-              text-decoration: none;
+    .sidebar {
+      background-color: #A8E4F2;
+      width: 220px;
+      min-height: 100vh;
+      padding: 20px;
+      float: left;
     }
-        .nav-links a:hover {
-      text-decoration: underline;
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 30px;
+      border: 3px solid gold;
+      border-radius: 50%;
+      color: gold;
+      font-weight: bold;
+      text-align: center;
+      line-height: 72px;
     }
-
-    .logout-btn {
+    .nav-links a {
       display: block;
+      margin: 15px 0;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #003366;
+      text-decoration: none;
+    }
+    .logout-btn {
       margin-top: 40px;
-      background-color: white;
+      display: block;
+      background: white;
       color: black;
       font-weight: bold;
-      padding: 10px 20px;
+      text-align: center;
+      padding: 10px;
       border-radius: 10px;
       text-decoration: none;
-      text-align: center;
     }
-
-    .main-content {
-      flex: 1;
-      background-color: #21618c;
-      padding: 60px 40px;
+    .main-area {
+      margin-left: 240px;
+      padding: 40px;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      gap: 30px;
     }
-        .booking-box {
-            background-color:#c4dcec;
-            padding:30px;
-            border-radius:10px;
-            text-align:center;
-            max-width:500px;
-            margin: auto;
-            margin-top:50px;
-        }
-
-        .booking-box h2{
-            color: var(--primary-blue);
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        label{
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-        select, 
-        input[type="date"],
-        input[type="time"],
-         button {
-            width:100%;
-            padding:10px;
-            margin-top:6px;
-            margin-bottom: 20px;
-            border:1px solid white;
-            border-radius:5px;
-            font-size:1em;
-        }
-        button {
-            background-color: var(--primary-blue);
-            cursor:pointer;
-            color:white;
-            font-weight:bold;
-            border: none;
-        }
-       
-        button:hover{
-            background-color: #002b5c;
-        }
-        .back-link{
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            font-weight: bold;
-            text-decoration: none;
-            color: var(--primary-blue);
-        }
-
-        .confirmation-box {
-          margin-top: 20px;
-          background-color: #e6f3ff;
-          padding: 15px;
-          border-left: 5px solid var(--primary-blue);
-          border-radius: 6px;
-          color: #003366;
-          text-align: left;
+    .booking-box, .calendar-box {
+      background-color: #c4dcec;
+      padding: 30px;
+      border-radius: 10px;
+      width: 50%;
     }
-    </style>
+    label {
+      font-weight: bold;
+      color: #003366;
+    }
+    select, input[type="text"], button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    #calendar {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .confirmation-box {
+      background-color: #e6f3ff;
+      padding: 15px;
+      border-left: 5px solid #003366;
+      border-radius: 6px;
+      color: #003366;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="sidebar">
+  <div class="sidebar">
     <div class="logo">Logo</div>
     <div class="nav-links">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="coordinator.html">Coordinator</a>
-        <a href="listenertips.html">Listener Tips</a>
-        <a href="chatroom.html"> Chat Room</a>
-        <a href="feedback.html"> Feedback</a>
-        <a href="help.html">Help</a>
-        <a href="aboutus.html">About Us</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="coordinator.html">Coordinator</a>
+      <a href="listenertips.html">Listener Tips</a>
+      <a href="booking.html">Book Slot</a>
+      <a href="chatroom.html">Chat Room</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="help.html">Help</a>
+      <a href="aboutus.html">About Us</a>
     </div>
-      <a href="login.html" class="logout-btn">Logout</a>
-</div>
+    <a href="login.html" class="logout-btn">Logout</a>
+  </div>
 
-
-    
+  <div class="main-area">
     <div class="booking-box">
-        <h2> Book your Slot</h2>
-        <form action="dashboard.html" method="get">
+      <h2>Book your Slot</h2>
+      <label for="location">Select Place:</label>
+      <select id="location">
+        <option value="">-- Select Location --</option>
+        <option value="Tea_Tree_Plaza">Tea Tree Plaza</option>
+        <option value="Campbelltown_Library">Campbelltown Library</option>
+        <option value="Rundle_Mall">Rundle Mall</option>
+      </select>
 
-            <label for="location">Select Place:</label>
-            <select id="location" name="Location" requuired>
-                <option value="">----Select Location----</option>
-                <option value="Tea_Tree_Plaza">Tea Tree Plaza</option>
-                <option value="Campbelltown_Library">Campbelltown Library</option>
-                <option value="Rundle_Mall">Rundle Mall</option>
-                <option value="Burnside">Burnside</option>
-                <option value="Greenacres_Library">Greenacres Library</option>
-                <option value="Prospect_Library">Prospect Library</option>
-        </select>
-        
-        <label for="date">Select Date:</label>
-        <input type="date" id="date" name="date" required>
+      <label for="date">Select Date:</label>
+      <input type="text" id="date" placeholder="YYYY-MM-DD" disabled />
 
-        <label for="time"> Select Time:</label>
-        <input type="time" id="time" min="09:00" max="16:00" step="3600" required>
+      <label for="time">Select Time:</label>
+      <select id="time" disabled>
+        <option value="">-- Choose Time --</option>
+      </select>
 
-        <button type="button" id="book-slot">Book Slot</button>
-        
-        </form>
-    
-        <div class="confirmation-box" id="confirmation-box">
-            <strong>Booking Confirmed!</strong><br>
-            You have booked a chat seat at <strong id="confirm-location"></strong><br>
-            on <strong id="confirm-date"></strong> at <strong id="confirm-time"></strong>.
-        </div>
+      <button onclick="bookSlot()">Book Slot</button>
+      <div id="confirmation" class="confirmation-box mt-3" style="display:none;"></div>
     </div>
-    
-    <script>
-      const firebaseConfig = {
-          apiKey: "AIzaSyBB6KrILbmD6knl9yOsQuFEDP38oU67bcg",
-          authDomain: "chat-seats-chat-room.firebaseapp.com",
-          databaseURL: "https://chat-seats-chat-room-default-rtdb.asia-southeast1.firebasedatabase.app",
-          projectId: "chat-seats-chat-room",
-          storageBucket: "chat-seats-chat-room.firebasestorage.app",
-          messagingSenderId: "804236683094",
-          appId: "1:804236683094:web:a8236d8f0f0572acfbd8f7"
+
+    <div class="calendar-box">
+      <h4>View Booked Schedule</h4>
+      <label for="calendar-location">Select Location:</label>
+      <select id="calendar-location">
+        <option value="">-- Select Location --</option>
+        <option value="Tea_Tree_Plaza">Tea Tree Plaza</option>
+        <option value="Campbelltown_Library">Campbelltown Library</option>
+        <option value="Rundle_Mall">Rundle Mall</option>
+      </select>
+      <div id='calendar'></div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBB6KrILbmD6knl9yOsQuFEDP38oU67bcg",
+      authDomain: "chat-seats-chat-room.firebaseapp.com",
+      databaseURL: "https://chat-seats-chat-room-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "chat-seats-chat-room",
+      storageBucket: "chat-seats-chat-room.firebasestorage.app",
+      messagingSenderId: "804236683094",
+      appId: "1:804236683094:web:a8236d8f0f0572acfbd8f7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const locationSelect = document.getElementById("location");
+    const calendarLocation = document.getElementById("calendar-location");
+    const dateInput = document.getElementById("date");
+    const timeSelect = document.getElementById("time");
+    const confirmation = document.getElementById("confirmation");
+
+    const timeSlots = ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"];
+
+    locationSelect.addEventListener("change", () => {
+      const loc = locationSelect.value;
+      if (!loc) return;
+
+      dateInput.disabled = false;
+
+      let dateOptions = {
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates, dateStr) {
+          loadAvailableTimes(loc, dateStr);
+        }
       };
 
-      firebase.initializeApp(firebaseConfig);
-      const database = firebase.database();
+      if (loc === "Tea_Tree_Plaza") {
+        dateOptions.minDate = "2025-04-05";
+        dateOptions.maxDate = "2025-04-30";
+      } else if (loc === "Campbelltown_Library") {
+        dateOptions.minDate = "2025-04-10";
+        dateOptions.maxDate = "2025-04-20";
+      } else if (loc === "Rundle_Mall") {
+        dateOptions.minDate = "2025-04-15";
+        dateOptions.maxDate = "2025-04-25";
+      }
 
-      document.getElementById("book-slot").addEventListener("click", function() {
-          let location = document.getElementById("location").value;
-          let date = document.getElementById("date").value;
-          let time = document.getElementById("time").value;
+      flatpickr("#date", dateOptions);
+    });
 
-          if (!location || !date || !time) {
-              alert("Please fill in all fields!");
-              return;
+    function loadAvailableTimes(location, date) {
+      timeSelect.disabled = false;
+      timeSelect.innerHTML = '<option value="">-- Choose Time --</option>';
+      db.ref(`bookings/${location}/${date}`).once("value", snap => {
+        const booked = snap.val() || {};
+        timeSlots.forEach(time => {
+          if (!booked[time]) {
+            const opt = document.createElement("option");
+            opt.value = time;
+            opt.textContent = time;
+            timeSelect.appendChild(opt);
           }
-
-          let newBooking = database.ref("bookings").push();
-          newBooking.set({
-              username: "User",
-              location: location,
-              date: date,
-              time: time
-          });
-
-          document.getElementById("confirm-location").innerText = location;
-          document.getElementById("confirm-date").innerText = date;
-          document.getElementById("confirm-time").innerText = time;
-          document.getElementById("confirmation-box").style.display = "block";
+        });
       });
+    }
+
+    function bookSlot() {
+      const loc = locationSelect.value;
+      const date = dateInput.value;
+      const time = timeSelect.value;
+      if (!loc || !date || !time) return alert("Please complete all fields.");
+      const ref = db.ref(`bookings/${loc}/${date}/${time}`);
+      ref.once("value", snap => {
+        if (snap.exists()) {
+          alert("This slot is already booked!");
+        } else {
+          ref.set({ booked: true });
+          confirmation.style.display = "block";
+          confirmation.innerHTML = `<strong>Booking Confirmed!</strong><br>${loc} - ${date} ${time}`;
+          timeSelect.innerHTML = '<option value="">-- Choose Time --</option>';
+        }
+      });
+    }
+
+    // FullCalendar init
+    document.addEventListener("DOMContentLoaded", function() {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        height: 500,
+        events: function(fetchInfo, successCallback, failureCallback) {
+          const loc = calendarLocation.value;
+          if (!loc) return successCallback([]);
+          db.ref(`bookings/${loc}`).once("value", snap => {
+            const bookings = snap.val() || {};
+            let events = [];
+            for (const date in bookings) {
+              for (const time in bookings[date]) {
+                events.push({
+                  title: time,
+                  start: `${date}T${time}`,
+                  allDay: false
+                });
+              }
+            }
+            successCallback(events);
+          });
+        }
+      });
+      calendar.render();
+
+      calendarLocation.addEventListener("change", () => {
+        calendar.refetchEvents();
+      });
+    });
   </script>
 </body>
 </html>
